@@ -6,6 +6,19 @@
     By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
 */
 
-function fiboEvenSum(n) {
-  return true;
+function last(arr){
+    return arr.slice(-1)[0]
 }
+
+function secondLast(arr){
+    return arr.slice(-2)[0]
+}
+
+function fibUntil(fn, collect = [0, 1]){
+    if (fn(last(collect)))
+        return fibUntil(fn, [...collect, last(collect) + secondLast(collect)])
+    return collect
+}
+
+const even = x => x % 2 == 0
+console.log(fibUntil((x => x < 4000000)).filter(x => even(x)).reduce((prev, current) => prev + current, 0))
