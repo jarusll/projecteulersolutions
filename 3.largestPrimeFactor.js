@@ -26,3 +26,23 @@ function generatePrime(fn, collect = [2]){
 
     return collect
 }
+
+// attempt 2
+function generate(n, start = 1){
+    if (n == start || n == 0)
+        return []
+    return [...generate(n - 1), n]
+}
+
+const divisible = (x, y) => x % y == 0
+const isPrime = num => generate(Math.ceil(Math.sqrt(num)), 2).every(x => num % x !== 0)
+function solve(number, n){
+    let divisor = Math.floor(number / n)
+    if (divisible(number, n) && isPrime(divisor)){
+        return divisor
+    }
+    return solve(number, n + 1)
+}
+
+// console.log(isPrime(200))
+console.log(generate(600851475143).filter(x => isPrime(x)))
